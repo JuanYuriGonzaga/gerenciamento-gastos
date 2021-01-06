@@ -31,15 +31,51 @@ const Divida_usuario = require('./models/dividas_usuario');
 app.use(express.static(__dirname + '/assets'));
 
 app.get("/", function(req, res){
-	res.sendFile(__dirname + "/html/index.html");
+	res.render("index");
 });
 
 app.post("/formularioLogin", function(req, res){
-	res.send("Teste do envio de informações do formulário: " + req.body.nome_usuario);
+
+	let nome_usuario = req.body.nome_usuario;
+	let senha_usuario = req.body.senha_usuario;
+	
+	Usuarios.findAll({where: {'us_nome': nome_usuario, 'us_senha': senha_usuario}}).then(function(dados){
+		if (dados != "")
+		{
+			res.render("inicioAplicacao");
+		}
+		else
+		{
+			res.render("/");
+		}
+	}).catch(function(){
+		res.send("Deu problema rapaziada!");
+	});
+});
+
+app.post("/formularioCadastro", function(req, res){
+
+	let nome_usuario = req.body.nome_usuario;
+	let senha_usuario = req.body.senha_usuario;
+	let salario_usuario = req.body.salario_usuario;
+	let alimentacao_usuario = req.body.alimentacao_usuario;
+	let transporte_usuario = req.body.transporte_usuario;
+
+	Usuarios.create({
+		us_nome: nome_usuario,
+		us_senha: senha_usuario,
+		us_salario: salario_usuario,
+		us_vale_alimentacao: alimentacao_usuario,
+		us_vale_transporte: transporte_usuario
+	}).then(function(retorno){
+		res.render("sucessoCadastro");
+	}).catch(function(erro){
+		res.render("falhaCadastro");
+	});
 });
 
 app.get("/inicioCadastro", function(req, res){
-	res.sendFile(__dirname + "/html/cadastro.html");
+	res.render("cadastro");
 });
 
 // Diz para o servidor iniciar e utilizar a porta padrão ou então a porta 3000.
