@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Aprendizado HTML/CSS</title>
+	<title>Controle Gastos</title>
 	<link rel="stylesheet" type="text/css" href="/css/index.css">
 </head>
 <body>
@@ -10,19 +10,19 @@
 	<div class="box">
 		<h2>Login</h2>
 
-		<form>
+		<form action="/formularioLogin" method="POST">
 			<div class="inputBox">
-				<input type="text" name="" required="">
+				<input type="text" name="nome_usuario" id="nome_usuario" required="">
 				<label>Nome Usuário:</label>
 			</div>
 
 			<div class="inputBox">
-				<input type="password" name="" required="">
+				<input type="password" name="senha_usuario" id="senha_usuario" required="">
 				<label>Senha:</label>
 			</div>
 
 			<input type="submit" value="Enviar">
-			<input type="button" value="Cadastrar">
+			<a href="/inicioCadastro"><input type="button" value="Cadastrar"></a>
 		</form>
 	</div>
 
